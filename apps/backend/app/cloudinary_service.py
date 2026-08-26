@@ -116,6 +116,10 @@ def upload_media_to_cloudinary(
         Dictionary with upload results including URL and public_id
     """
     try:
+        # If the client sent a full data URI instead of raw base64, strip the prefix
+        if media_base64.startswith("data:") and "," in media_base64:
+            media_base64 = media_base64.split(",", 1)[1]
+
         # Resolve correct MIME type and Cloudinary resource_type
         detected_mime = _detect_mime_type(media_base64, media_type, mime_type)
 

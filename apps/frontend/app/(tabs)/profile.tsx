@@ -1,10 +1,9 @@
 import React, { useState, useEffect } from 'react';
 import {
   View, Text, StyleSheet, TouchableOpacity, ScrollView,
-  Alert, ActivityIndicator,
+  Alert, ActivityIndicator, Platform
 } from 'react-native';
 import { Ionicons } from '@expo/vector-icons';
-import { router } from 'expo-router';
 import { useAuth } from '../../contexts/AuthContext';
 import { getSyncStatus, processSyncQueue } from '../../utils/offlineSync';
 
@@ -62,6 +61,13 @@ export default function Profile() {
   };
 
   const handleLogout = () => {
+    if (Platform.OS === 'web') {
+      if (window.confirm('Are you sure you want to sign out?')) {
+        logout();
+      }
+      return;
+    }
+
     Alert.alert(
       'Log Out',
       'Are you sure you want to sign out?',
@@ -72,7 +78,8 @@ export default function Profile() {
           style: 'destructive',
           onPress: async () => {
             await logout();
-            router.replace('/login');
+            // Navigation is handled automatically by the <Redirect href="/login" />
+            // guard in (tabs)/_layout.tsx once isAuthenticated becomes false.
           },
         },
       ]

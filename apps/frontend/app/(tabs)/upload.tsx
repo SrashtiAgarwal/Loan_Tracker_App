@@ -103,6 +103,8 @@ export default function Upload() {
     else setReceiptPhotos(prev => prev.filter((_, i) => i !== idx));
   };
 
+  const getImageUri = (b64: string) => b64.startsWith('data:') ? b64 : `data:image/jpeg;base64,${b64}`;
+
   const handleUpload = async () => {
     if (!selectedLoan) return Alert.alert('Select Loan', 'Please choose a loan.');
     if (!utensilName.trim()) return Alert.alert('Required', 'Enter utensil / item name.');
@@ -195,7 +197,7 @@ export default function Upload() {
                 {list.map((b64, i) => (
                   <Image
                     key={i}
-                    source={{ uri: `data:image/jpeg;base64,${b64}` }}
+                    source={{ uri: getImageUri(b64) }}
                     style={camStyles.stripThumb}
                   />
                 ))}
@@ -315,7 +317,7 @@ export default function Upload() {
               {sitePhotos.map((b64, i) => (
                 <View key={i} style={styles.thumbWrap}>
                   <Image
-                    source={{ uri: `data:image/jpeg;base64,${b64}` }}
+                    source={{ uri: getImageUri(b64) }}
                     style={styles.thumb}
                   />
                   <TouchableOpacity
@@ -352,7 +354,7 @@ export default function Upload() {
               {receiptPhotos.map((b64, i) => (
                 <View key={i} style={styles.thumbWrap}>
                   <Image
-                    source={{ uri: `data:image/jpeg;base64,${b64}` }}
+                    source={{ uri: getImageUri(b64) }}
                     style={styles.thumb}
                   />
                   <TouchableOpacity

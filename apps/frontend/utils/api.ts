@@ -11,7 +11,7 @@ const BASE_URL = process.env.EXPO_PUBLIC_API_URL || 'http://localhost:8000/api';
 // Create a typed Axios instance
 const apiClient: AxiosInstance = axios.create({
   baseURL: BASE_URL,
-  timeout: 15000,
+  timeout: 30000,  // 30 s for normal requests
   headers: {
     'Content-Type': 'application/json',
   },
@@ -130,7 +130,7 @@ export const mediaAPI = {
     gps_coordinates: { latitude: number; longitude: number; accuracy?: number | null };
     device_info?: { device_model?: string; os_version?: string; app_version?: string };
     utensil_name?: string;
-  }) => apiClient.post('/media/upload', payload),
+  }) => apiClient.post('/media/upload', payload, { timeout: 60000 }),
 
   list: (params?: { beneficiary_id?: string; loan_id?: string; uploaded_by?: string }) =>
     apiClient.get('/media', { params }),
