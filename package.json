@@ -1,0 +1,31 @@
+{
+  "name": "loan-app",
+  "version": "0.0.0",
+  "private": true,
+  "packageManager": "yarn@1.22.22",
+  "workspaces": [
+    "apps/frontend",
+    "apps/backend"
+  ],
+  "scripts": {
+    "dev": "turbo run start",
+    "dev:win": "turbo run start:win",
+    "dev:frontend": "yarn workspace @loan-app/frontend start",
+    "dev:backend": "turbo run start --filter=backend",
+    "build": "turbo run build",
+    "lint": "turbo run lint",
+    "format": "turbo run format",
+    "clean": "turbo run clean",
+    "backend:install": "cd apps/backend && python -m venv venv && ./venv/bin/pip install -r requirements.txt",
+    "backend:install:win": "cd apps\\backend && python -m venv venv && .\\venv\\Scripts\\pip install -r requirements.txt",
+    "backend:dev": "cd apps/backend && ./venv/bin/uvicorn main:app --reload --host 0.0.0.0 --port 8000",
+    "backend:dev:win": "cd apps\\backend && .\\venv\\Scripts\\uvicorn main:app --reload --host 0.0.0.0 --port 8000",
+    "backend:seed": "cd apps/backend && ./venv/bin/python seed.py",
+    "backend:seed:win": "cd apps\\backend && .\\venv\\Scripts\\python seed.py",
+    "backend:start": "cd apps/backend && ./venv/bin/uvicorn main:app --host 0.0.0.0 --port 8000",
+    "backend:start:win": "cd apps\\backend && .\\venv\\Scripts\\uvicorn main:app --host 0.0.0.0 --port 8000"
+  },
+  "devDependencies": {
+    "turbo": "latest"
+  }
+}

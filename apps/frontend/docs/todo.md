@@ -1,0 +1,4 @@
+- Multiple files need to upload for KYC (Receipt)
+- Persist the user async storage that is secure in expo
+- Create a page to show the documents uploaded
+- ML integration for document scan and extract data
